@@ -1,0 +1,122 @@
+
+  An implementation of Floyd-Warshall algorithm for finding shortest paths between all pairs of vertices using 
+  MATRIX representation
+ 
+  Warning this implementation is not fully tested, use at your own risk
+  See httpwww.giaithuatlaptrinh.comp=814 for more details.
+ 
+   Created on Feb 25, 2016
+   
+#includestdio.h
+#includestdlib.h
+#includestring.h
+#includetime.h
+#define INFTY 1000000000
+
+
+int W;	 the weight matrix
+int n;		 the number of vertices of the graph
+int D;	 the distance matrix
+int T;	 the trace matrix
+void read(); 	 read the input
+void Floyd_Warshall(int W, int n);
+void init(int n);	 initialize distance and trace matrices
+void print_reverse_path(int T, int u, int v);
+void find_reverse_path(int T, int u, int v);
+int main(){
+	read();
+	Floyd_Warshall(W,n);
+	print_reverse_path(T,1,5);
+	print_reverse_path(T,1,6);
+	print_reverse_path(T,6,5);
+}
+
+ Remark in this implementation, vertices is indexed from 1 to n instead of from 0 to n-1
+
+void read(){
+	n = 6;
+	W = (int )malloc((n+1)sizeof(int));
+	int i = 0, j = 0;
+	for(; i = n; i++){
+		W[i] = (int )malloc((n+1)sizeof(int));
+		for(j = 0; j = n; j++) W[i][j] = INFTY; 
+		W[i][i] = 0;
+	}
+	
+	W[1][2] = 3 ;
+	W[1][3] = 2 ;
+	W[2][3] = 6 ;
+	W[2][4] = 3 ;
+	W[2][5] = 2 ;
+	W[3][2] = 5 ;
+	W[3][4] = 5 ;
+	W[4][5] = 1 ;
+	W[5][3] = 4 ;
+	W[6][3] = 7 ;
+	W[6][1] = 1 ;
+
+}
+
+
+void Floyd_Warshall(int W, int n){
+	init(n);		 initialize T and D matrices
+	int u = 1, v = 1;
+	for(; u = n; u++){
+		for(v = 1; v = n; v++){
+			if(W[u][v]  INFTY){
+				D[u][v] = W[u][v];
+				T[u][v] = 0;
+			}
+		}
+	}
+	int i = 1;
+	for(; i = n; i++){
+		for(u = 1; u = n; u++){
+			for(v = 1; v = n; v++){
+				if(D[u][v]  D[u][i] + D[i][v]){
+					D[u][v] = D[u][i] + D[i][v];
+					T[u][v] = i;
+				}
+			}
+		}
+	}
+}
+
+void init(int n){
+	T = (int )malloc((n+1)sizeof(int));
+	D = (int )malloc((n+1)sizeof(int));
+	int i = 0, j = 0;
+	for(; i =n ; i++){
+		T[i] = (int )malloc((n+1)sizeof(int));
+		D[i] = (int )malloc((n+1)sizeof(int));
+		for(j = 0; j = n; j++){
+			T[i][j] = -1;		-1 represents NULL
+			D[i][j] = INFTY;	
+		}
+		T[i][i] = 0;
+		D[i][i] = 0;
+	}
+}
+
+void print_reverse_path(int T, int u, int v){
+	if(T[u][v] == -1){
+		printf(there is no path between %d and %dn, u,v);
+		return;
+	}else {
+		printf(%d , v);
+		find_reverse_path(T,u,v);
+		printf(n);
+	}	
+}
+
+void find_reverse_path(int T, int u, int v){
+		int i = T[u][v];
+		if(i == 0){
+			printf(%d ,u);
+		} else{
+			find_reverse_path(T,i,v);
+			find_reverse_path(T,u,i);
+		}
+}
+
+

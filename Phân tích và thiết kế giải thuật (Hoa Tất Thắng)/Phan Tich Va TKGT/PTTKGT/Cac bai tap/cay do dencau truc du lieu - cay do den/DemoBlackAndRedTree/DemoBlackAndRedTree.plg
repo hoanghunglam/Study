@@ -1,0 +1,41 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: DemoBlackAndRedTree - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\Me\LOCALS~1\Temp\RSP80.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/DemoBlackAndRedTree.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\truonghoc\NAM3\HocKy2\CTDL2\!!Black and Red Tree\DemoBlackAndRedTree\RedAndBlac.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Me\LOCALS~1\Temp\RSP80.tmp" 
+Creating temporary file "C:\DOCUME~1\Me\LOCALS~1\Temp\RSP81.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/DemoBlackAndRedTree.pdb" /debug /machine:I386 /out:"Debug/DemoBlackAndRedTree.exe" /pdbtype:sept 
+".\Debug\DemoBlackAndRedTree.obj"
+".\Debug\DemoBlackAndRedTreeDoc.obj"
+".\Debug\DemoBlackAndRedTreeView.obj"
+".\Debug\MainFrm.obj"
+".\Debug\RedAndBlac.obj"
+".\Debug\StdAfx.obj"
+".\Debug\Value.obj"
+".\Debug\DemoBlackAndRedTree.res"
+]
+Creating command line "link.exe @C:\DOCUME~1\Me\LOCALS~1\Temp\RSP81.tmp"
+<h3>Output Window</h3>
+Compiling...
+RedAndBlac.cpp
+D:\truonghoc\NAM3\HocKy2\CTDL2\!!Black and Red Tree\DemoBlackAndRedTree\RedAndBlac.cpp(349) : warning C4101: 'a' : unreferenced local variable
+D:\truonghoc\NAM3\HocKy2\CTDL2\!!Black and Red Tree\DemoBlackAndRedTree\RedAndBlac.cpp(350) : warning C4101: 'x' : unreferenced local variable
+Linking...
+
+
+
+<h3>Results</h3>
+DemoBlackAndRedTree.exe - 0 error(s), 2 warning(s)
+</pre>
+</body>
+</html>

@@ -1,0 +1,54 @@
+- Quay lui lai dinh cu
+- Xem lai code
+-dung dslk de ve do thi co huong
+- uu tien trong so be hon
+
+B1: Xay Dung Do Thi
+   - Khai bao cap phat bo nho cho con tro *G dinh dang Graph
+   - Tham chieu den bien thanh vien adjList cua struct, khai bao va cap phat bo nho
+   - Khai bao va thiet lap mang adjList gom tap cac dinh da nhap
+   - Duyet mang dslk da khoi tao sau khi gan gia tri, dat gia tri cuoi cung cua dslk la NULL
+   - add_arc: 	
+	add_arc (): gan tham so truyen vao la u ,v : xac dinh dinh v va tap dinh adjList[u] ke voi v
+	=> tap danh sach lien ket gom v va cac dinh u ke voi v
+
+B2: Duyet Do Thi
+  - Kosaraju
+  - Khoi tao Stack rong
+  - Khoi tao bien mark cap phat bo nho, de luu cac dinh da Visited
+  - Set n gia tri cua do thi G, mark la Unvisited
+  - for i < G->n
+	neu dinh i chua duoc tham thi duyet DFS tu dinh do
+  -DFS
+  -mark dinh i la Visited
+  -Gan gia tri dinh i vao con tro dlsk arc tuong ung
+  -Duyet dslk arc voi dinh v dang xet
+     1)Neu dinh i khong co tap dinh nao ke, ko co dinh con thi Push i vao Stack
+     2)Neu dinh:
+	-Vong lap while se lap cho den khi tat ca cac dinh con cua v dc mark la Visited
+	 + Da dc Visited thi bo qua, next den dinh tiep trong dslk arc da tao o tren tuong ung voi dinh v dang xet
+	 + Dinh unVisited thi de quy HamDFS 
+		vi du: xet dinh 0 mark visited, xet tap arc cua 0 
+		       co dinh ke voi 0 la 2 de quy DFS i=2 mark 2 la visited, may tu luu trang thai cua dinh 0 theo co che stack
+ 		xet tap arc cua 2:
+		       co dinh ke voi 2 la 1 de quy DFS i=1 mark 1 la visited, luu trang thai cua 2 dang thuc hien do
+		xet tap arc cua 1
+		       co dinh ke voi 1 la 0 nhung 0 mark visited, thoat vong lap va push i vao STack S
+		vong for i tang len 1 xet dinh 1
+		       1 da mark visited
+		vong for i = 2
+		       lay trang thai cua dinh 2 tu Stack, xet arc cua 2 thay 1 visited => push 2 vao stack
+		vong for i = 3 .....
+                 
+		 0 -> 2 -> 3
+		 1 -> 0
+		 2 -> 1
+		 3-> 4
+		 4
+B3: Dao chieu do thi G -> H
+B4: In TP lien thong 
+	- Duyet stack
+	- De quy dfs and print
+
+			
+	 

@@ -1,0 +1,161 @@
+/*
+ * An implementation of Kruskal algorithm to find the minimum spanning tree of a graph. This implement is combined with Union-Find data structure.
+ *
+ * Warning: this implementation is not fully tested, use at your own risk.
+ * See http://www.giaithuatlaptrinh.com/?p=1140 for more details.
+ *
+ *  Created on: May 24, 2016
+ *  Author: Hung Le
+ */   
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<time.h>
+
+// we represent a graph by a list of edges
+
+typedef struct edge{
+	int u;
+	int v;
+	int w;		// the weight of an edge
+} edge;
+
+edge *E;	// the graph
+int n;		// the number of vertices of the graph
+int m;		// the number of edges of the graph
+
+void read();
+void add_edge(int u, int v, int w, int i);
+int compare_edge_weight (const void *a, const void *b);
+edge *Kruskal();
+
+
+void initUF(int n);
+void Make_set(int x);
+int Find(int x);
+void Union(int x, int y);
+
+void print_edge_graph();
+
+int main(){
+	read();
+//	print_edge_graph();
+	edge *T = Kruskal();
+	printf("Edges of T:\n");
+	int i = 0;
+	for(; i < n-1; i++){
+		printf("(%d,%d,%d)\n", T[i].u, T[i].v, T[i].w);
+	}
+}
+
+edge *Kruskal(){
+	edge *T  = (edge*) malloc((n-1)*sizeof(edge));	// a spanning tree has n-1 edges
+	qsort(E, m, sizeof(edge), compare_edge_weight);
+	int i = 0;
+	int j = 0;
+	int mst_cost = 0;	// the cost of the minimum spanning tree
+	initUF(n);			// initialize the union-find structure
+	for(; i < n; i++) Make_set(i);
+	for(i = 0; i < m; i++){
+		if(Find(E[i].u) != Find(E[i].v)){
+			Union(E[i].u,E[i].v);
+			T[j] = E[i]; // add E[i] to the spanning tree
+			mst_cost += E[i].w;
+			j++;
+		}
+	}
+	printf("The cost of the MST: %d\n",mst_cost);
+	return T;
+}
+
+
+void read(){
+	n = 6;
+	m = 10;
+	E = (edge *)malloc(m*sizeof(edge));
+	add_edge(0,1,1,0);	// add edge a-b of weight 1
+	add_edge(1,2,1,1);	// add edge b-c of weight 1
+	add_edge(0,2,2,2);	// add edge a-c of weight 2
+	add_edge(1,3,4,3);	// add edge b-d of weight 4
+	add_edge(1,4,8,4);	// add edge b-e of weight 8
+	add_edge(2,3,3,5);	// add edge c-d of weight 3
+	add_edge(2,5,9,6);	// add edge c-f of weight 9
+	add_edge(3,4,6,7);	// add edge d-e of weight 6
+	add_edge(3,5,7,8);	// add edge d-f of weight 7
+	add_edge(4,5,2,9);	// add edge e-f of weight 2
+
+}
+
+//	add an edge u-v with weight w
+// i is the index of the added edge in the edge list.
+void add_edge(int u, int v, int w, int i){
+	E[i].u = u;
+	E[i].v = v;
+	E[i].w = w;
+}
+
+// the compare function for quick sorting edges of graphs
+
+int compare_edge_weight (const void *a, const void *b)
+{
+    const edge *ia = (const edge *)a; // casting pointer types 
+    const edge *ib = (const edge *)b;
+    return ia->w  - ib->w; 
+}
+
+
+///////////////////////////////////////////////////////////////////////
+///
+///		UNION-FIND BY RANK IMPLEMENTATION		
+///
+//////////////////////////////////////////////////////////////////////
+
+
+int *P;		// the parent array
+int *R;		// the rank array
+
+// allocate memory for parent arry P and rank array R
+void initUF(int n){
+	P = (int *)malloc(n*sizeof(int));
+	R = (int *)malloc(n*sizeof(int));
+}
+
+void Make_set(int x){
+	P[x] = x;
+	R[x] = 0;
+}
+
+int Find(int x){
+	if( P[x] != x){
+		P[x] = Find(P[x]);
+	}
+	return P[x];
+}
+
+void Union(int x, int y){
+	int a = Find(x);
+	int b = Find(y);
+	if(R[a] > R[b]){
+		P[b] = a;
+	} else {
+		P[a] = b;
+		if( R[a] == R[b]){
+			R[b] ++;
+		}
+	}
+}
+
+///////////////////////////////////////////////////////////////////////
+//////////////////////
+//////////////////////	PRINTING INTERFACE FOR DEBUGGING
+//////////////////////
+//////////////////////////////////////////////////////////////////////
+
+
+void print_edge_graph(){
+	int i = 0;
+	for(; i < m; i++){
+		printf("Edge (%d,%d) has weight %d\n",E[i].u, E[i].v, E[i].w);
+	}	
+}
+
